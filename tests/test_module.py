@@ -27,7 +27,7 @@ from myproject.module import fib
 
 
 def test_fib_one():
-    assert fib(1) == 1, "The very first Fibonacci number should be..."
+    assert fib(1) == 0, "The very first Fibonacci number should be 0"
 
 
 def test_fib_two():
@@ -52,7 +52,7 @@ def test_fib_minus_one():
 
 def test_fib_minus_two():
     """Check that calling fib function with minus two raises an exception."""
-    with pytest.raises(RuntimeError):
+    with pytest.raises(ValueError):
         fib(-2)
 
 

@@ -1,48 +1,45 @@
-# Import the necessary libraries
 import numpy as np
 import matplotlib.pyplot as plot
 import pandas
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 
-def import_data_and_split():
-    # Import the dataset
-    d = pandas.read_csv('data.csv')
-    x = d.iloc[:, :-1].values
-    y = d.iloc[:, 1].values
 
+def split_data():
     # Split the dataset into the training set and test set
     # We're splitting the data in 1/3, so out of 30 rows, 20 rows will go into the training set,
     # and 10 rows will go into the testing set.
-    xTrain, xtest, y_Train, yTest = train_test_split(x, y, test_size =1 / 3, random_state = 0)
+    x_train, x_test, y_train, y_test = train_test_split(
+        x_values, y_values, test_size=1 / 3, random_state=0
+    )
 
-    return (xTrain, xtest, y_Train, yTest)
+    return (x_train, x_test, y_train, y_test)
 
 
+def import_data():
+    data_set = pandas.read_csv("data.csv")
+    x_values = data_set.iloc[:, :-1].values
+    y_values = data_set.iloc[:, 1].values
+    return x_values, y_values
 
-if __name__ == '__main__':
-    xTrain, xtest, y_Train, yTest = import_data_and_split()
 
-    # Creating a LinearRegression object and fitting it
-    # on our trainging set.
-    linearRegressor = LinearRegression()
-    linearRegressor.fit(xTrain, y_Train)
-
-    # Predicting the test set results
-    yPrediction = linearRegressor.predict(xtest)
-
-    # Visualising the training set results
-    plot.scatter(xTrain, y_Train, color ='red')
-    plot.plot(xTrain, linearRegressor.predict(xTrain), color = 'blue')
-    plot.title('Salary vs Experience (Training set)')
-    plot.xlabel('Years of Experience')
-    plot.ylabel('Salary')
+def plot_data(x_points, y_points, predictor, label):
+    plot.scatter(x_points, y_points, color="red")
+    plot.plot(x_points, predictor.predict(x_points), color="blue")
+    plot.title(label)
+    plot.xlabel("Years of Experience")
+    plot.ylabel("Salary")
     plot.show()
 
-    # Visualising the test set results
-    plot.scatter(xtest, yTest, color ='red')
-    plot.plot(xtest, linearRegressor.predict(xtest), color ='blue')
-    plot.title('Salary vs Experience (Test set)')
-    plot.xlabel('Years of Experience')
-    plot.ylabel('Salary')
-    plot.show()
+
+if __name__ == "__main__":
+    x_values, y_values = import_data()
+    x_train, x_test, y_train, y_test = split_data()
+
+    linear_regressor = LinearRegression()
+    linear_regressor.fit(x_values, y_values)
+
+    y_prediction = linear_regressor.predict(x_test)
+
+    plot_data(x_train, y_train, linear_regressor, "Salary vs Experince (Training set)")
+    plot_data(x_test, y_test, linear_regressor, "Salary vs Experince (Test set)")

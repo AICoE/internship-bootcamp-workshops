@@ -203,6 +203,7 @@ If the command above looks too long for you, you can run a prepared script
 [GitHub link](https://github.com/AICoE/workshop-coding-best-practices/blob/master/test.sh)
 
 ---
+
 #### 🤔 Task 1: Let's fix tests!
 
 After running commands above, your can see produced output stating each test
